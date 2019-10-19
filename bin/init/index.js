@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
-let checkTarget = require('./check-target.js');
+let checkTarget = require('./check-target.js'),
+createProject = require('./create-project.js'),
 
-checkTarget(process.argv[2] || process.cwd())
+target = process.argv[2] || process.cwd();
+
+checkTarget(target)
 
 .then(() => {
-
-    console.log('the folder is good');
-
+    return createProject(target);
 })
 
 .catch((e) => {
