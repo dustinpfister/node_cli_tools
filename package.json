@@ -1,0 +1,25 @@
+{
+  "name": "node_cli_tools",
+  "version": "0.0.0",
+  "description": "This project aims to be a collection of node.js powered CLI tool examples.",
+  "main": "index.js",
+  "bin": {
+    "nc-walk": "bin/walk"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dustinpfister/node_cli_tools.git"
+  },
+  "author": "Dustin Pfister",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/dustinpfister/node_cli_tools/issues"
+  },
+  "homepage": "https://github.com/dustinpfister/node_cli_tools#readme",
+  "dependencies": {
+    "yargs": "^14.2.0"
+  }
+}
