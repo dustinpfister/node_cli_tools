@@ -4,7 +4,8 @@
   "description": "This project aims to be a collection of node.js powered CLI tool examples.",
   "main": "index.js",
   "bin": {
-    "nc-walk": "bin/walk"
+    "nc-init": "bin/init/index.js",
+    "nc-walk": "bin/walk/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
