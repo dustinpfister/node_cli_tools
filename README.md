@@ -6,8 +6,12 @@ This serves as code example for posts on my website, as I would like to write a 
 
 ## nc-init
 
-Initialize a new project folder.
+Initialize a new project folder. This command will create a new standard project folder that is used for this over all project. This will be a posts, and themes folders as well as a config file.
 
 ## nc-walk command
 
 This is just a basic file system walker. The walker can be used by itself by calling the command and pass arguments for the root path to walk, and a path to a script that will be called for each file found in a target path. It can also be used in the same way from another script.
+
+## nc-ssg
+
+A simple static site generator for this project. WHen called in a project folder that was created using the nc-init command it will create a public folder using the content in the posts folder and the theme.
