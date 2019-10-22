@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/dustinpfister/node_cli_tools#readme",
   "dependencies": {
+    "ejs": "^2.7.1",
+    "marked": "^0.7.0",
     "yargs": "^14.2.0"
   }
 }
