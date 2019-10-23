@@ -21,12 +21,28 @@ exports.builder = {
     s: {
     default:
         false
+    },
+    // api (data passed via JSON if using command)
+    a: {
+    default:
+        false
     }
 };
 exports.handler = function (argv) {
+
+    let api = {};
+
+    // try to load JSON data passed via a option
+    try {
+        api = JSON.parse(JSON.stringify(argv.a));
+    } catch (e) {
+        api = {};
+    }
+
     require('../lib/walk.js')({
         dir: argv.t,
         recursive: argv.r,
-        scriptPath: argv.s
+        scriptPath: argv.s,
+        api: api
     });
 };

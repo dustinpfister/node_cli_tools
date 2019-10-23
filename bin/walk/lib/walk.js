@@ -34,7 +34,7 @@ let walk = (opt) => {
                     readNext(files);
                 } else {
                     item.stat = stat;
-                    opt.forFile(item, function () {
+                    opt.forFile(opt.api, item, function () {
                         readNext(files);
                     });
                 }
@@ -79,6 +79,7 @@ module.exports = (opt) => {
     opt.beforeWalk = opt.beforeWalk || function (next, opt) {
         next();
     };
+    opt.api = opt.api || {};
 
     // load forFile
     loadScript(opt.scriptPath)
@@ -93,8 +94,8 @@ module.exports = (opt) => {
         // if given bolth use bolth
         if (typeof forFile === 'function' && forFile.forFile) {
             opt.forFile = function (item, next) {
-                forFile(item, next);
-                forFile.forFile(item, next);
+                forFile(opt.api, item, next);
+                forFile.forFile(opt.api, item, next);
             };
         }
         // dir option in for file scripts is relative to the forFile script
