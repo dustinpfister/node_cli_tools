@@ -18,6 +18,7 @@ let genPosts = (opt) => {
 
 }
 
+// exported method for gen.js
 module.exports = (opt) => {
 
     // make sure public folder is there
