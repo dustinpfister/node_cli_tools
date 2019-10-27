@@ -37,3 +37,7 @@ This is just a basic file system walker. The walker can be used by itself by cal
 ### 3.3 - nc-ssg
 
 A simple static site generator for this project. When called in a project folder that was created using the nc-init command it will create a public folder using the content in the posts folder and the theme.
+
+### 3.4 - nc-edit
+
+A text editor.
