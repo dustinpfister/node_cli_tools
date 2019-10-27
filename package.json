@@ -6,7 +6,8 @@
   "bin": {
     "nc-init": "bin/init/index.js",
     "nc-walk": "bin/walk/index.js",
-    "nc-ssg": "bin/ssg/index.js"
+    "nc-ssg": "bin/ssg/index.js",
+    "nc-edit": "bin/edit/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
