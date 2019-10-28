@@ -1,5 +1,8 @@
 // nc-edit default command sever
 
+let isJSURL = (url) => {
+    return (!!url.match(/^\/js/) && url.length == 3) || !!url.match(/^\/js\//);
+};
 
 let forMethod = {
     
@@ -10,7 +13,7 @@ let forMethod = {
         });
         
         var status = 'url: ' + req.url + '<br>' +
-        'jsPath: ' + !!req.url.match(/\/js^/) + '<br>' +
+        'jsPath: ' + isJSURL(req.url) + '<br>' +
         'method: ' + req.method;
         
         res.write(status, 'utf-8');
