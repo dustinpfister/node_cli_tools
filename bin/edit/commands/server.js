@@ -10,6 +10,29 @@ let isJSURL = (url) => {
     
 };
 
+let getIndex = (conf, req, res) => {
+    
+    if(req.url === '/'){
+        
+        return readFile(path.join(conf.dir_public, 'index.html'), 'utf8')
+        
+        .then((html)=>{
+            
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            res.write(html, 'utf8');
+            res.end();
+                
+        })
+        
+    }
+    
+    return Promise.reject( new Error('Not the URL for the index') );
+    
+};
+
+// get a client side javaScript resource
 let getJS = (conf, req, res) => {
     
     if(isJSURL(req.url)){
@@ -36,8 +59,13 @@ let forMethod = {
     GET : (conf, req, res) => {
         
 
+        getIndex(conf, req, res)
+        
+        .catch((e)=>{
             
-        getJS(conf, req, res)
+            return getJS(conf, req, res);
+            
+        })
         
         .catch((e)=>{
             res.writeHead(500, {
