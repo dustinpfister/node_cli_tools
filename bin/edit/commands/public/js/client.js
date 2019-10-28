@@ -1,23 +1,17 @@
+// setup quill
+//Quill.register('/themes/core');
 var quill = new Quill('#editor', {
-    theme: 'snow'
+    theme: 'snow',
+    modules: {
+      toolbar: {
+        container:'#toolbar'
+      }
+    }
   });
 
-/*
-var edit = document.getElementById('edit');
 
-var lineCount = 10,
-line,
-lineIndex = 0;
-
-while(lineIndex < lineCount){
+document.getElementById('button_save').addEventListener('click', function(){
+   
+    console.log( quill.getText() );
     
-    line = document.createElement('div');
-    line.id = 'line-' + lineIndex;
-    line.className = 'line_container';
-    line.innerText = lineIndex;
-    
-    edit.appendChild(line);
-    
-    lineIndex += 1;
-}
-*/
+});
