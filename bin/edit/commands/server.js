@@ -17,6 +17,8 @@ module.exports = (conf) => {
     app.use('/', express.static( conf.dir_public ));
     app.use('/shared', express.static( path.join(conf.dir_shared_public) ));
     
+    app.use('/file-list', require(path.join(__dirname, 'middleware/file-list.js'))(conf) );
+    
     app.listen(conf.port, () => {
         
         console.log('nc-edit server running on port ' + conf.port);
