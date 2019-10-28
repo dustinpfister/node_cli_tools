@@ -1,5 +1,6 @@
 // default command for nc-edit
-let server = require('./server.js');
+let server = require('./server.js'),
+path = require('path');
 
 exports.command = '*';
 exports.aliases = ['d'];
@@ -18,6 +19,10 @@ exports.builder = {
 exports.handler = function (argv) {
     console.log('nc-edit default command:');
     
-    server(argv.t, argv.p);
+    server({
+        target: argv.t,
+        port: argv.p,
+        dir_public: path.join(__dirname, 'public')
+    })
     
 };

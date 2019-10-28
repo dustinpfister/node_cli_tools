@@ -1,23 +1,61 @@
 // nc-edit default command sever
+let fs = require('fs'),
+path = require('path'),
+promisify = require('util').promisify,
+readFile = promisify(fs.readFile);
 
 let isJSURL = (url) => {
+    
     return (!!url.match(/^\/js/) && url.length == 3) || !!url.match(/^\/js\//);
+    
+};
+
+let getJS = (conf, req, res) => {
+    
+    if(isJSURL(req.url)){
+            
+        return readFile(path.join(conf.dir_public, req.url), 'utf8')
+            
+        .then((js)=>{
+            
+            res.writeHead(200, {
+                'Content-Type': 'text/js'
+            });
+            res.write(js, 'utf8');
+            res.end();
+                
+        })
+        
+    }
+    
+    return Promise.reject(new Error('Not a JS PATH'));
 };
 
 let forMethod = {
     
     GET : (conf, req, res) => {
         
-        res.writeHead(200, {
-            'Content-Type': 'text/html'
+
+            
+        getJS(conf, req, res)
+        
+        .catch((e)=>{
+            res.writeHead(500, {
+                'Content-Type': 'text/plain'
+            });
+            res.write(e.message, 'utf8');
+            res.end();
         });
         
-        var status = 'url: ' + req.url + '<br>' +
-        'jsPath: ' + isJSURL(req.url) + '<br>' +
-        'method: ' + req.method;
+        //res.writeHead(200, {
+        //    'Content-Type': 'text/html'
+        //});
         
-        res.write(status, 'utf-8');
-        res.end();
+        //var status = 'url: ' + req.url + '<br>' +
+        //'method: ' + req.method;
+        
+        //res.write(status, 'utf-8');
+        //res.end();
         
     }
     
@@ -39,38 +77,25 @@ let requestHandler = (conf, req, res) => {
         
     }
     
-    
 };
 
 
-module.exports = (target, port) => {
+module.exports = (conf) => {
     
     let http = require('http'),
     
     server = http.createServer();
     
-    //server.on('request', (req, res)=> {
-    //    
-    //    res.writeHead(200, {
-    //        'Content-Type': 'text/html'
-    //    });
-    //    res.write('url: ' + req.url + '<br>' + 'method: ' + req.method, 'utf-8');
-    //    res.end();
-    //    
-    //});
     server.on('request', (req, res)=>{
         
-        requestHandler({
-            target: target,
-            port: port
-        }, req, res);
+        requestHandler(conf, req, res);
         
     });
     
     
-    server.listen(port, () => {
+    server.listen(conf.port, () => {
         
-        console.log('nc-edit server running on port ' + port);
+        console.log('nc-edit server running on port ' + conf.port);
         
     });
     
