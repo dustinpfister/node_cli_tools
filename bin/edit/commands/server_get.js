@@ -1,4 +1,4 @@
-// nc-edit default command sever
+// nc-edit default command sever_get request handler
 let fs = require('fs'),
 path = require('path'),
 promisify = require('util').promisify,
