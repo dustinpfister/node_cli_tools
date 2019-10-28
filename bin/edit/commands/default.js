@@ -22,7 +22,8 @@ exports.handler = function (argv) {
     server({
         target: argv.t,
         port: argv.p,
-        dir_public: path.join(__dirname, 'public')
+        dir_public: path.join(__dirname, 'public'),
+        dir_shared_public: path.join(__dirname, '../../../shared/public')
     })
     
 };
