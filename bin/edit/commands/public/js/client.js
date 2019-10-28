@@ -1,3 +1,8 @@
+var quill = new Quill('#editor', {
+    theme: 'snow'
+  });
+
+/*
 var edit = document.getElementById('edit');
 
 var lineCount = 10,
@@ -15,3 +20,4 @@ while(lineIndex < lineCount){
     
     lineIndex += 1;
 }
+*/
