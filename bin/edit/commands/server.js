@@ -1,45 +1,21 @@
 // nc-edit default command sever
-
-// for method handler
-let forMethod = {
-    
-    GET : require('./server_get.js')
-    
-}
-
-let requestHandler = (conf, req, res) => {
-    
-    handler = forMethod[req.method];
-    
-    if(handler){
-        
-        handler(conf, req, res);
-        
-    }else{
-        
-        res.writeHead(500);
-        res.write('unsupported http method')
-        res.end();
-        
-    }
-    
-};
+let express = require('express'),
+path = require('path');
 
 
 module.exports = (conf) => {
     
-    let http = require('http'),
+    let app = express();
     
-    server = http.createServer();
+    conf = conf || {};
+    conf.port = conf.port || 8080;
+    conf.target = conf.target || process.cwd();
+    conf.dir_public = conf.dir_public || path.join(__dirname, 'public')
+    conf.app = app;
+
+    app.use('/', express.static( path.join(conf.dir_public) ));
     
-    server.on('request', (req, res)=>{
-        
-        requestHandler(conf, req, res);
-        
-    });
-    
-    
-    server.listen(conf.port, () => {
+    app.listen(conf.port, () => {
         
         console.log('nc-edit server running on port ' + conf.port);
         
