@@ -18,6 +18,7 @@ module.exports = (conf) => {
     app.use('/shared', express.static( path.join(conf.dir_shared_public) ));
     
     app.use('/file-list', require(path.join(__dirname, 'middleware/file-list.js'))(conf) );
+    app.use('/file-open', require(path.join(__dirname, 'middleware/file-open.js'))(conf) );
     
     app.listen(conf.port, () => {
         
