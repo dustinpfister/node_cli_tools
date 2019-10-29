@@ -10,8 +10,11 @@ module.exports = (conf) => {
     router.use(require('body-parser').json());
 
     router.post('/', (req, res) => {
+		
+		console.log('yes this is file-save');
+		console.log(req.body);
 
-        fs.writeFile(path.join(conf.target, req.body.fileName), res.body.text, 'utf8', (e) => {
+        fs.writeFile(path.join(conf.target, req.body.fileName), req.body.text, 'utf8', (e) => {
 
             if (e) {
 

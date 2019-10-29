@@ -19,6 +19,7 @@ module.exports = (conf) => {
     
     app.use('/file-list', require(path.join(__dirname, 'middleware/file-list.js'))(conf) );
     app.use('/file-open', require(path.join(__dirname, 'middleware/file-open.js'))(conf) );
+    app.use('/file-save', require(path.join(__dirname, 'middleware/file-save.js'))(conf) );
     
     app.listen(conf.port, () => {
         

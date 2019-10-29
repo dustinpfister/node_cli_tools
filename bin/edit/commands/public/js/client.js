@@ -20,10 +20,23 @@ var vue = new Vue({
 
         // methods
         methods: {
+            // save a file from text area to target folder
             save: function () {
-                console.log('save');
+
+                console.log('save' + this.$data.fileName);
+
+                this.$http.post('/file-save', {
+                    fileName: this.$data.fileName,
+                    text: this.$data.text
+                })
+                .then(function (res) {
+                    console.log(res);
+                });
+
             },
+            // open a file from target folder of the current fileName
             open: function () {
+
                 console.log('open: ' + this.$data.fileName);
 
                 this.$http.post('/file-open', {
