@@ -21,6 +21,19 @@ let hexer = {
             
         }).join(returnChar);
         
+    },
+    
+    // convert rawStyle format hex back to text
+    fromRawStyle : (hex, returnChar) => {
+        
+        returnChar = returnChar === undefined ? '\n' : returnChar;
+        
+        return hexer.splitByReturns(hex).map((line)=>{
+            
+            return Buffer.from(line, 'hex').toString('utf8');
+            
+        }).join(returnChar);
+        
     }
     
 };

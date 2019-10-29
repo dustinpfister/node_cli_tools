@@ -19,6 +19,8 @@ exports.builder = {
 exports.handler = function (argv) {
     console.log('nc-hexer default command:');
     
-    console.log(hexer.toRawStyle('foo\r\nbar\nfeeb'));
+    let raw = hexer.toRawStyle('foo\r\nbar\nfeeb');
+    
+    console.log(hexer.fromRawStyle(raw));
     
 };
