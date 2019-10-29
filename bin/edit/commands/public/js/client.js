@@ -6,10 +6,10 @@ var vue = new Vue({
 
         // temaple for the vue
         template: '<div>' +
-        '<input type=\"text\" v-bind:value=\"fileName\"> ' +
+        '<input type=\"text\" v-model=\"fileName\"> ' +
         '<input type=\"button\" value=\"open\" v-on:click=\"open\"> ' +
         '<input type=\"button\" value=\"save\" v-on:click=\"save\"> <br><br>' +
-        '<textarea cols=\"80\" rows=\"20\" v-bind:value=\"text\"></textarea>' +
+        '<textarea cols=\"80\" rows=\"20\" v-model=\"text\"></textarea>' +
         '</div>',
 
         // state
@@ -24,7 +24,7 @@ var vue = new Vue({
                 console.log('save');
             },
             open: function () {
-                console.log('open');
+                console.log('open: ' + this.$data.fileName);
 
                 this.$http.post('/file-open', {
                     fileName: this.$data.fileName
@@ -32,11 +32,11 @@ var vue = new Vue({
                 .then(function (res) {
 
                     console.log(res);
-					if(res.body.data){
-						
-						this.$data.text = data;
-						
-					}
+                    if (res.body.text) {
+
+                        this.$data.text = res.body.text;
+
+                    }
 
                 })
 
