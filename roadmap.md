@@ -76,3 +76,10 @@ This is what needs to be done for each command in the /bin folder
 
 * (done) new default command started
 * (done) new gen command started
+* The /bin/lib/walk.js file should be used as a normal nodejs lib and not a command via the child_process module
+
+### nc-walk
+
+* (done) basic idea of nc-walk working
+* walk.js should have a more clearly defined public api rather than just exporting one method
+* leave the main function as is, but add some public keys to the function that are to be used by other commands such as nc-ssg

@@ -3,11 +3,16 @@ path = require('path');
 
 // walk method
 let walk = (opt) => {
+    
     // options
     opt = opt || {};
     opt.dir = opt.dir || process.cwd();
-    opt.forFile = opt.forFile || function (item, next) {
-        console.log(item.path);
+    opt.forFile = opt.forFile || function (api, item, next) {
+        console.log('');
+        console.log('fileName: ' + item.fileName);
+        console.log('path: ' + item.path);
+        console.log('size: ' + item.stat.size);
+        console.log('');
         next();
     };
     opt.recursive = opt.recursive || false;
@@ -72,8 +77,8 @@ let loadScript = (filePath) => {
     });
 };
 
-// main method that is exported
-module.exports = (opt) => {
+// The public API starting with the main methods used by nc-walk
+let api =  (opt) => {
 
     opt = opt || {};
     opt.beforeWalk = opt.beforeWalk || function (next, opt) {
@@ -124,3 +129,12 @@ module.exports = (opt) => {
 
     });
 };
+
+//export walk and loadScript
+
+api.walk = walk;
+api.loadScript = loadScript;
+
+
+// export the api
+module.exports = api;
