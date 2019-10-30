@@ -81,5 +81,5 @@ This is what needs to be done for each command in the /bin folder
 ### nc-walk
 
 * (done) basic idea of nc-walk working
-* walk.js should have a more clearly defined public api rather than just exporting one method
-* leave the main function as is, but add some public keys to the function that are to be used by other commands such as nc-ssg
+* (done) walk.js should have a more clearly defined public api rather than just exporting one method
+* (done) leave the main function as is, but add some public keys to the function that are to be used by other commands such as nc-ssg extending a new public api while not breaking older code.

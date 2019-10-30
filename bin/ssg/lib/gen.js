@@ -1,21 +1,31 @@
 let exec = require('child_process').exec,
 promisify = require('util').promisify,
 mkdirp = promisify(require('mkdirp')),
-path = require('path');
+path = require('path'),
+walk = require('../../walk/lib/walk.js');
 
 // generate posts
 let genPosts = (opt) => {
     let path_script = path.resolve(__dirname, '../lib/for_post.js'),
-    path_target = path.resolve(opt.dir_root, '_posts'),
+    path_target = path.resolve(opt.dir_root, '_posts');
     
-    genPosts = exec('nc-walk -s ' + path_script + ' -t ' + path_target + ' -a {"boo":"bar"}');
+    //walk = exec('nc-walk -s ' + path_script + ' -t ' + path_target + ' -a {"boo":"bar"}');
 
     console.log('path_for_post_script: ' + path_script);
     console.log('path_posts_folder: ' + path_target);
 
-    genPosts.stdout.on('data', (data) => {
-        console.log(data.toString());
+    walk.walk({
+        dir: path_target,
+        forFile: require(path_script),
+        api: {
+            dir_posts: path_target
+        }
     });
+    
+    
+    //walk.stdout.on('data', (data) => {
+    //    console.log(data.toString());
+    //});
 
 }
 
@@ -28,7 +38,6 @@ module.exports = (opt) => {
     // gen posts
     .then(() => {
         genPosts(opt);
-
     })
 
     // if error

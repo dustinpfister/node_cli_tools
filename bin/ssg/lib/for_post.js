@@ -14,9 +14,10 @@ let isMarkdown = (item) => {
 }
 
 // main forFile method to be used with nc-walk
-module.exports = (opt, item, next) => {
+module.exports = (api, item, next) => {
 
-    console.log(opt);
+    console.log('api:')
+    console.log(api);
 
     isMarkdown(item)
 
