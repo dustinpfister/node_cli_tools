@@ -15,6 +15,7 @@ let walk = (opt) => {
         console.log('');
         next();
     };
+    opt.api = opt.api || {};
     opt.recursive = opt.recursive || false;
     opt.onDone = opt.onDone || function () {};
 
