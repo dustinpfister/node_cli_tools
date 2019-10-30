@@ -70,7 +70,10 @@ This is what needs to be done for each command in the /bin folder
 
 * (done) new hexer.js lib that can be used to convert text to a hex format and back
 * (done) default command working
-* (done) hexer.js should be in a lib folder local or shared
+* make hexer.js a shared lib
+* hexer.js has one or more simple keyless obfustication options
+* hexer.js has a general createCipheriv option where a single key, salt ect is used for each line
+* advanced createCipheriv method for uisng custom key, salt, and iv for each line
 
 ### nc-init
 

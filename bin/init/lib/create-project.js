@@ -7,8 +7,9 @@ writeFile = promisify(fs.writeFile),
 mkdirp = promisify(require('mkdirp')),
 header = require('../../../shared/lib/header/index.js');
 
-// create a new project at target
-module.exports = (target) => {
+// create a starting _posts folder for the project
+let createPostsFolder = (target)=> {
+    
     // make posts folder
     return mkdirp(path.join(target, '_posts'))
     // read demo post
@@ -25,7 +26,16 @@ module.exports = (target) => {
         head.updated = now;
         text = header.updatePost(data, head);
         return writeFile(path.join(target, '_posts', 'first-post.md'), text);
-    })
+    });
+    
+};
+
+// create a new project at target
+module.exports = (target) => {
+    
+    // create the _posts folder
+    createPostsFolder(target)
+    
     // we are good
     .then(()=>{
         console.log('looks like we have a new project folder.');
