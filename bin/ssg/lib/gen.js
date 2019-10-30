@@ -2,7 +2,7 @@ let exec = require('child_process').exec,
 promisify = require('util').promisify,
 mkdirp = promisify(require('mkdirp')),
 path = require('path'),
-walk = require('../../walk/lib/walk.js');
+walk = require('../../../shared/lib/walk/walk.js');
 
 // generate posts
 let genPosts = (opt) => {

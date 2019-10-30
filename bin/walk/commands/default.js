@@ -39,7 +39,7 @@ exports.handler = function (argv) {
         api = {};
     }
 
-    require('../lib/walk.js')({
+    require('../../../shared/lib/walk/walk.js')({
         dir: argv.t,
         recursive: argv.r,
         scriptPath: argv.s,
