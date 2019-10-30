@@ -9,7 +9,7 @@ header = require('../../../shared/lib/header/index.js');
 
 // create a starting _posts folder for the project
 let createPostsFolder = (target)=> {
-    
+    console.log('creating _posts folder.');
     // make posts folder
     return mkdirp(path.join(target, '_posts'))
     // read demo post
@@ -30,15 +30,23 @@ let createPostsFolder = (target)=> {
     
 };
 
+// create core theme
+createThemesFolder = (target)=> {
+    console.log('creating _themes folder with starting core theme.');
+    return mkdirp(path.join(target, '_themes', 'core'));
+};
+
 // create a new project at target
 module.exports = (target) => {
     
     // create the _posts folder
     createPostsFolder(target)
-    
+    .then(()=>{
+        return createThemesFolder(target);
+    })
     // we are good
     .then(()=>{
-        console.log('looks like we have a new project folder.');
+        console.log('looks like we have a new project folder setup!');
     })
     // error
     .catch((e)=>{
