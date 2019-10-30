@@ -3,7 +3,7 @@ let fs = require('fs'),
 path = require('path'),
 promisify = require('util').promisify,
 
-mkdir = promisify(fs.mkdir),
+mkdirp = promisify(require('mkdirp')),
 readFile = promisify(fs.readFile),
 writeFile = promisify(fs.writeFile);
 
@@ -11,7 +11,7 @@ writeFile = promisify(fs.writeFile);
 module.exports = (target) => {
 
     // make posts folder
-    return mkdir(path.join(target, '_posts'))
+    return mkdirp(path.join(target, '_posts'))
 
     // read demo post
     .then(() => {

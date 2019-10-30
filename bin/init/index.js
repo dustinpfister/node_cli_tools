@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
+require('yargs')
+.command(require('./commands/default.js'))
+.argv;
+
+/*
 let checkTarget = require('./check-target.js'),
 createProject = require('./create-project.js'),
 
@@ -15,4 +20,5 @@ checkTarget(target)
 
     console.log(e.message);
 
-})
+});
+*/
