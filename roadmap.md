@@ -78,6 +78,7 @@ This is what needs to be done for each command in the /bin folder
 * (done) make a standard commands and lib folders for nc-init
 * (done) add a force option for the default command for nc-init
 * (done) when writing the demo-post to the target folder append the current data as the date and updated fields for the header of the post.
+* generate a /themes/core folder for the core theme
 * generate .gitignore file for the site folder
 * make the site folder a git folder
 * make a first commit
@@ -86,7 +87,11 @@ This is what needs to be done for each command in the /bin folder
 
 * (done) new default command started
 * (done) new gen command started
-* The /bin/lib/walk.js file should be used as a normal nodejs lib and not a command via the child_process module
+* (done) The /bin/lib/walk.js file should be used as a normal nodejs lib and not a command via the child_process module
+* nc-ssg should make use of a theme folder in the project folder
+* nc-ssg should create a main index.js file
+* posts should be created in in a /[yyyy]/[mm]/[dd]/[name-of-post]/index.html url pattern
+* page files should be created in a /page/[pageNumber] url pattern
 
 ### nc-walk
 
