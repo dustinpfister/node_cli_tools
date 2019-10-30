@@ -20,7 +20,20 @@ module.exports = (target) => {
 
     // write demo post in new _posts folder
     .then((data) => {
+        console.log('copying demo post');
         return writeFile(path.join(target, '_posts', 'first-post.md'), data);
     })
+    
+    .then(()=>{
+        
+        console.log('looks like we have a new project folder.');
+        
+    })
+    
+    .catch((e)=>{
+        
+        console.warn(e.message);
+        
+    });
 
 };

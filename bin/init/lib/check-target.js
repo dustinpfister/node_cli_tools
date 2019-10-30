@@ -28,7 +28,7 @@ module.exports = (target) => {
             return Promise.resolve();
         }
         // fail if there are contents
-        return Promise.reject(new Error('The directory is not empty'));
+        return Promise.reject(new Error('The directory is not empty, if you want you can use the force option $ nc-init -f'));
     });
 
 };
