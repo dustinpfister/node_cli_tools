@@ -3,6 +3,7 @@ patt_matchHeader = exports.patt_matchHeader = /---\n[\s|\S]*?---\n/;
 
 // get the header from markdown text
 exports.get = function (text) {
+    text = text.toString();
     let head = text.match(patt_matchHeader);
     if (!head) {
         return {};
@@ -29,7 +30,13 @@ exports.toYAML = (obj, md) => {
     md;
 };
 
+// quickly just update a post that has front matter with the given headerObj
+exports.updatePost = (post, headerObj) => {
+    return this.toYAML(headerObj, this.remove(post));
+};
+
 // remove a header from makdown text
 exports.remove = function (text) {
+    text = text.toString();
     return text.replace(patt_matchHeader, '');
 };
