@@ -4,7 +4,7 @@ fs = require('fs'),
 promisify = require('util').promisify,
 readFile = promisify(fs.readFile),
 writeFile = promisify(fs.writeFile),
-hexer = require('../hexer.js');
+hexer = require('../lib/hexer.js');
 
 exports.command = '*';
 exports.aliases = ['d'];
