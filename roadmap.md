@@ -1,34 +1,41 @@
-# roadmap for node_cli_tools
+# Roadmap / Outline for the node_cli_tools project
 
-Okay so I am going to try this simple list style roadmap as a way to outline what needs to happen with this project.
+Okay so I am going to try this simple list style roadmap as a way to outline what needs to happen with this project. I will also use it is a place to write other notes related to the how the project is designed.
 
-## bin folder
+## 1 - bin folder
 
 In this section I am outlining a standard format by which each command should be designed.
 
-### /bin/[commandName]
+### 1.1 - /bin/[commandName]
 
 Each command has a folder in the bin folder
  
-### /bin/[commandName]/index.js
+### 1.2 - /bin/[commandName]/index.js
 
 Each nc-[commandName] command has an index.js file in the commandName folder. This is the script that will be called to start the command, and as such it is what the package.json file points to in the bin key of the package.json file. It also has the nodejs shebang at the top of the file as well. The file uses yargs to load commands from the command folder of the commandName folder, and that folder should have at least a default.js file.
  
-### /bin/[commandName]/commands
+### 1.3 - /bin/[commandName]/commands
 
 Here there should be at least a default.js file that outlines the options and handler of the default command of the nc-commandName cli tool.
  
-### /bin/[commandName]/lib
+### 1.4 - /bin/[commandName]/lib
 
 This is a local lib folder for the command. If the lib is just used by the local commandName it should go here, otherwise it might be better to place it in the lib folder of the shared folder.
 
-## shared folder
+## 2 - shared folder
 
-* (done) start new shared folder
-* (done) have a shared public folder for any assests that are to be used as a public asset in client systems and any site builds (front end js, css, images, ect) to be used with two or more commands.
-* shared lib folder for libs that are used by two or more commands, but are not published to npm.
+The shared folder is for shared resources accross commands. A place to park things that will be used by more than one command, but is not published to npm. This can contain bolth front end, and nodejs resources.
 
-## commands
+### 2.1 - /shared/public
+
+The shard public folder is for shared resoucse that are inteend to be used in the front end, or anything where it might be okay for it to be accessabule from a public url.
+
+### 2.2 - /shared/lib
+
+This is a a shared lib folder for nodejs modules that are used for two or more commands. If it is closly related to a single command then it should be part of that commands local lib folder.
+
+
+## 3 - The Commands Roadmap
 
 This is what needs to be done for each command in the /bin folder
 
@@ -83,3 +90,4 @@ This is what needs to be done for each command in the /bin folder
 * (done) basic idea of nc-walk working
 * (done) walk.js should have a more clearly defined public api rather than just exporting one method
 * (done) leave the main function as is, but add some public keys to the function that are to be used by other commands such as nc-ssg extending a new public api while not breaking older code.
+* make walk.js the first lib in the shard lib folder
