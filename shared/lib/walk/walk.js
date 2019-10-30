@@ -17,6 +17,7 @@ let walk = (opt) => {
     };
     opt.api = opt.api || {};
     opt.recursive = opt.recursive || false;
+    opt.dirMode = opt.dirMode || false;
     opt.onDone = opt.onDone || function () {};
 
     // readNext
@@ -31,15 +32,22 @@ let walk = (opt) => {
             };
             fs.stat(item.path, (e, stat) => {
                 i += 1;
+                item.stat = stat;
                 if (stat.isDirectory()) {
                     if (opt.recursive) {
                         walk(Object.assign({}, opt, {
                                 dir: item.path
                             }));
                     }
-                    readNext(files);
+                    if(opt.dirMode){
+                        opt.forFile(opt.api, item, function () {
+                            readNext(files);
+                        });
+                    }else{
+                        readNext(files);
+                    }
                 } else {
-                    item.stat = stat;
+                    //item.stat = stat;
                     opt.forFile(opt.api, item, function () {
                         readNext(files);
                     });
