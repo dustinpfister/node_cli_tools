@@ -8,24 +8,18 @@ walk = require('../../walk/lib/walk.js');
 let genPosts = (opt) => {
     let path_script = path.resolve(__dirname, '../lib/for_post.js'),
     path_target = path.resolve(opt.dir_root, '_posts');
+
+    console.log('generating...');
     
-    //walk = exec('nc-walk -s ' + path_script + ' -t ' + path_target + ' -a {"boo":"bar"}');
-
-    console.log('path_for_post_script: ' + path_script);
-    console.log('path_posts_folder: ' + path_target);
-
+    // walk
     walk.walk({
         dir: path_target,
         forFile: require(path_script),
         api: {
-            dir_posts: path_target
+            dir_posts: path_target,
+            dir_public: opt.dir_public
         }
     });
-    
-    
-    //walk.stdout.on('data', (data) => {
-    //    console.log(data.toString());
-    //});
 
 }
 
