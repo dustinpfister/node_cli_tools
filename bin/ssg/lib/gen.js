@@ -1,8 +1,9 @@
-//let exec = require('child_process').exec,
 let ejs = require('ejs'),
+fs = require('fs'),
 promisify = require('util').promisify,
 mkdirp = promisify(require('mkdirp')),
 renderFile = promisify(ejs.renderFile),
+writeFile = promisify(fs.writeFile),
 path = require('path'),
 walk = require('../../../shared/lib/walk/walk.js');
 
@@ -33,11 +34,37 @@ let createRenderMethod = (conf) => {
         
         ejs_locals.currentPage = Object.assign({},{
             layout: 'home',
-            path: '/'
+            path: '/',
+            fileName: 'index.html'
         }, pageInfo);
         
         // use ejs renderFile promisifyed
-        return renderFile( path_template_index, ejs_locals, ejs_options );
+        return renderFile( path_template_index, ejs_locals, ejs_options )
+        
+        // we not have html that can be saved
+        .then((html)=>{
+            
+            console.log('**********');
+            console.log(ejs_locals);
+            console.log(html);
+
+            
+            // write the html file to the public folder
+            let dir_target = path.join(ejs_locals.conf.dir_public, ejs_locals.currentPage.path),
+              path_target = path.join(dir_target, ejs_locals.currentPage.fileName);
+            console.log(dir_target);
+            console.log(path_target);
+            // ensure dir for file
+            return mkdirp(dir_target)
+            // write the file
+            .then(()=>{
+                return writeFile(path_target, html, 'utf8');
+            });
+            
+            console.log('**********');
+            
+            
+        });
         
     });
     
@@ -73,11 +100,6 @@ let genIndex = (opt, render) => {
     
     //renderFile( path_template_index, ejs_locals, ejs_options )
     render()
-    .then((html)=>{
-        
-        console.log(html);
-        
-    })
     .catch((e)=>{
         console.log('error building /index.html');
         console.log(e.message);
