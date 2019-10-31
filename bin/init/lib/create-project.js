@@ -37,7 +37,12 @@ createThemesFolder = (target)=> {
     let dir_target = path.join(target, '_themes');
     mkdirp(dir_target)
     .then(()=>{
-        copyDir(path.join(__dirname, './core'), dir_target);
+        let opt = {
+            onCopy: function(target){
+                console.log('\u001b[36m copy: ' + target + '\u001b[39m');
+            }
+        };
+        copyDir(path.join(__dirname, './core'), dir_target, opt);
     });
 };
 
