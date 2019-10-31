@@ -17,8 +17,13 @@ module.exports = (src, targetRoot, opt) => {
     
     opt = opt || {};
     opt.onDone = opt.onDone || function(){
-            console.log('done copying dir');
-        
+        //console.log('done');
+    };
+    opt.onCopy = opt.onCopy || function(target, item){
+        console.log('copy: ' + target);
+    };
+    opt.onError = opt.onError || function(e){
+        console.warn(e.message);
     };
     
     walk({
@@ -41,10 +46,11 @@ module.exports = (src, targetRoot, opt) => {
                 return copyFile(item.path, path_current_target);
             })
             .then(()=>{
+                opt.onCopy(path_current_target, item);
                 next();
             })
             .catch((e)=>{
-                console.warn(e.message);
+                opt.onError(e);
                 next();
             });
         },

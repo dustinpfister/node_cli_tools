@@ -51,18 +51,16 @@ let walk = (opt) => {
                 } else {
                     //item.stat = stat;
                     opt.forFile(opt.api, item, function () {
+                        //console.log(i / files.length, opt.start, opt.dir);
+                        if( i / files.length === 1 && opt.start){
+                            opt.onDone();
+                        }
                         readNext(files);
                     });
                 }
             });
-        }else{
-            if(opt.start){
-                
-                console.log(opt.dir)
-               opt.onDone();
-            }
-            
         }
+        //console.log(i / files.length, opt.start, opt.dir);
     };
     // read dir
     fs.readdir(opt.dir, (e, files) => {
