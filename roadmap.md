@@ -82,6 +82,9 @@ This is what needs to be done for each command in the /bin folder
 * (done) add a force option for the default command for nc-init
 * (done) when writing the demo-post to the target folder append the current data as the date and updated fields for the header of the post.
 * (done) generate a /themes/core folder for the core theme
+* core theme needs a layout folder
+* core theme should have a home layout
+* core theme should have a post layout
 * generate .gitignore file for the site folder
 * make the site folder a git folder
 * make a first commit
