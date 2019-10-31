@@ -15,8 +15,10 @@ module.exports = (src, targetRoot, opt) => {
         return new Error('must give a target root folder');
     }
     
-    opt = opt || {
-        onDone: function(){}
+    opt = opt || {};
+    opt.onDone = opt.onDone || function(){
+            console.log('done copying dir');
+        
     };
     
     walk({
@@ -33,47 +35,18 @@ module.exports = (src, targetRoot, opt) => {
             // absolute target path to create if it is not there
             dir_current_target = path.join(api.dir_target, rel_dir),
             path_current_target = path.join(dir_current_target, item.fileName);
-            
-            //console.log( dir_current_target );
-            console.log(rel_path);
-            console.log(rel_dir);
-            console.log(dir_current_target);
-            console.log(path_current_target);
-            console.log(item.path);
-            console.log('');
-            
+
             mkdirp(dir_current_target)
-            
             .then(()=>{
-                
                 return copyFile(item.path, path_current_target);
-                
             })
-            
             .then(()=>{
-                
                 next();
-                
             })
-            
             .catch((e)=>{
-                
                 console.warn(e.message);
-                
+                next();
             });
-            
-            
-            //if(item.stat.isDirectory()){
-                
-                //mkdirp(item.path)
-                //next()
-                
-            //}else{
-            
-                //next();
-                
-            //}
-            
         },
         onDone: opt.onDone,
 
