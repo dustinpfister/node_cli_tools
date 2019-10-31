@@ -1,9 +1,7 @@
 let fs = require('fs'),
 path = require('path');
-
 // walk method
 let walk = (opt) => {
-    
     // options
     opt = opt || {};
     opt.dir = opt.dir || process.cwd();
@@ -20,13 +18,11 @@ let walk = (opt) => {
     opt.dirMode = opt.dirMode || false;
     opt.onDone = opt.onDone || function () {};
     opt.start = opt.start === undefined ? true: opt.start;
-
     // readNext
     let i = 0;
     let readNext = (files) => {
         let fileName = files[i];
         if (i < files.length) {
-
             let item = {
                 fileName: fileName,
                 path: path.join(opt.dir, fileName)
@@ -60,7 +56,6 @@ let walk = (opt) => {
                 }
             });
         }
-        //console.log(i / files.length, opt.start, opt.dir);
     };
     // read dir
     fs.readdir(opt.dir, (e, files) => {
@@ -69,7 +64,6 @@ let walk = (opt) => {
         }
     });
 };
-
 // load a forFile Script
 let loadScript = (filePath) => {
     // a filePath must be given
@@ -92,16 +86,13 @@ let loadScript = (filePath) => {
         }
     });
 };
-
 // The public API starting with the main methods used by nc-walk
 let api =  (opt) => {
-
     opt = opt || {};
     opt.beforeWalk = opt.beforeWalk || function (next, opt) {
         next();
     };
     opt.api = opt.api || {};
-
     // load forFile
     loadScript(opt.scriptPath)
     // deal with forFile script
@@ -124,7 +115,6 @@ let api =  (opt) => {
             let dir_forFile = path.dirname(path.resolve(opt.scriptPath));
             opt.dir = path.join(dir_forFile, opt.dir);
         }
-
         return Promise.resolve(opt);
     })
     .catch(() => {
@@ -133,24 +123,17 @@ let api =  (opt) => {
     })
     // walk
     .then((opt) => {
-
         // call onDone once on process exit
         process.on('exit', function () {
             opt.onDone();
         });
-
         opt.beforeWalk(function () {
             walk(opt);
         }, opt);
-
     });
 };
-
 //export walk and loadScript
-
 api.walk = walk;
 api.loadScript = loadScript;
-
-
 // export the api
 module.exports = api;
