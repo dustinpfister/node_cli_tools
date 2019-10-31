@@ -19,6 +19,7 @@ let walk = (opt) => {
     opt.recursive = opt.recursive || false;
     opt.dirMode = opt.dirMode || false;
     opt.onDone = opt.onDone || function () {};
+    opt.start = opt.start === undefined ? true: opt.start;
 
     // readNext
     let i = 0;
@@ -36,7 +37,8 @@ let walk = (opt) => {
                 if (stat.isDirectory()) {
                     if (opt.recursive) {
                         walk(Object.assign({}, opt, {
-                                dir: item.path
+                                dir: item.path,
+                                start: false
                             }));
                     }
                     if(opt.dirMode){
@@ -53,6 +55,13 @@ let walk = (opt) => {
                     });
                 }
             });
+        }else{
+            if(opt.start){
+                
+                console.log(opt.dir)
+               opt.onDone();
+            }
+            
         }
     };
     // read dir
