@@ -101,4 +101,6 @@ This is what needs to be done for each command in the /bin folder
 * (done) basic idea of nc-walk working
 * (done) walk.js should have a more clearly defined public api rather than just exporting one method
 * (done) leave the main function as is, but add some public keys to the function that are to be used by other commands such as nc-ssg extending a new public api while not breaking older code.
-* make walk.js the first lib in the shard lib folder
+* (done) make walk.js the first lib in the shard lib folder
+* the walk.js walk methods onDone option is problamatic when walking recursively, but this can be fixed if I can find a way to fire onDone when recursive walking really is done
+* the walk.js walk method should return a promise, and this should work as a good alterative to the onDone option
