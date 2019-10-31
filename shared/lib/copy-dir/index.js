@@ -8,6 +8,8 @@ copyFile = promisify(fs.copyFile);
 
 module.exports = (src, targetRoot, opt) => {
     
+    console.log('okay great we know how to call functions');
+    
     if(!src){
         return new Error('must give a source folder');
     }

@@ -5,7 +5,8 @@ promisify = require('util').promisify,
 readFile = promisify(fs.readFile),
 writeFile = promisify(fs.writeFile),
 mkdirp = promisify(require('mkdirp')),
-header = require('../../../shared/lib/header/index.js');
+header = require('../../../shared/lib/header/index.js'),
+copyDir = require('../../../shared/lib/copy-dir/index.js');
 
 // create a starting _posts folder for the project
 let createPostsFolder = (target)=> {
@@ -33,7 +34,11 @@ let createPostsFolder = (target)=> {
 // create core theme
 createThemesFolder = (target)=> {
     console.log('creating _themes folder with starting core theme.');
-    return mkdirp(path.join(target, '_themes', 'core'));
+    let dir_target = path.join(target, '_themes');
+    mkdirp(dir_target)
+    .then(()=>{
+        copyDir(path.join(__dirname, './core'), dir_target);
+    });
 };
 
 // create a new project at target
@@ -42,7 +47,7 @@ module.exports = (target) => {
     // create the _posts folder
     createPostsFolder(target)
     .then(()=>{
-        return createThemesFolder(target);
+        createThemesFolder(target);
     })
     // we are good
     .then(()=>{
