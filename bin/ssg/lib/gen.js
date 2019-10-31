@@ -13,7 +13,6 @@ walk = require('../../../shared/lib/walk/walk.js');
 // is passed as the one argument that chainges things like layout,
 // the current post to render and so forth.
 let createRenderMethod = (conf) => {
-    
     // main index.ejs template file location
     let path_template_index = path.join(conf.dir_theme, 'index.ejs'),
     // ejs options
@@ -26,48 +25,31 @@ let createRenderMethod = (conf) => {
         title: 'site_foo main index',
         currentPage:{}
     };
-    
     // return a resolved Promise with the render method
     return Promise.resolve(function(pageInfo){
-        
+        // update currentPage info default values
+        // will result in a main index.html build
         pageInfo = pageInfo || {};
-        
         ejs_locals.currentPage = Object.assign({},{
             layout: 'home',
             path: '/',
             fileName: 'index.html'
         }, pageInfo);
-        
-        // use ejs renderFile promisifyed
+        // use ejs renderFile promisifyed to create html
         return renderFile( path_template_index, ejs_locals, ejs_options )
-        
-        // we not have html that can be saved
+        // we now have html that can be saved
         .then((html)=>{
-            
-            console.log('**********');
-            console.log(ejs_locals);
-            console.log(html);
-
-            
             // write the html file to the public folder
             let dir_target = path.join(ejs_locals.conf.dir_public, ejs_locals.currentPage.path),
               path_target = path.join(dir_target, ejs_locals.currentPage.fileName);
-            console.log(dir_target);
-            console.log(path_target);
             // ensure dir for file
             return mkdirp(dir_target)
             // write the file
             .then(()=>{
                 return writeFile(path_target, html, 'utf8');
             });
-            
-            console.log('**********');
-            
-            
         });
-        
     });
-    
 };
 
 // generate posts
