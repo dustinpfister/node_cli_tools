@@ -93,6 +93,8 @@ This is what needs to be done for each command in the /bin folder
 * (done) The /bin/lib/walk.js file should be used as a normal nodejs lib and not a command via the child_process module
 * (done) nc-ssg should make use of a theme folder in the project folder
 * (done) create a main render higher order function that is used in gen.js, and passed from gen.js to any additional assets that render html files.
+* use new render method to render blog posts
+* render posts in the _public folder following a /yyyy/mm/dd/[postFileName]/index.html pattren
 * generate a posts object that is passed as as a local for the ejs templates
 * built in helper methods for the locals ejs template object
 * nc-ssg should create a main index.js file

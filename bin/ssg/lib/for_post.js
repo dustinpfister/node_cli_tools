@@ -32,12 +32,18 @@ module.exports = (api, item, next) => {
     .then((data) => {
         let html = marked(data.toString());
         // write the file
-        return writeFile(dir_html, html, 'utf8');
+        //return writeFile(dir_html, html, 'utf8');
+        return api.render({
+            layout: 'post',
+            path: '/blog',
+            content: html
+        });
         next();
     })
     // then log gen file message
     .then(()=>{
-        console.log('gen: ' + dir_html)
+        //console.log('gen: ');
+        //console.log(api);
     })
     // if and error happens
     .catch((e) => {

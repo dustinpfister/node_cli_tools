@@ -33,6 +33,7 @@ let createRenderMethod = (conf) => {
         ejs_locals.currentPage = Object.assign({},{
             layout: 'home',
             path: '/',
+            content: '',
             fileName: 'index.html'
         }, pageInfo);
         // use ejs renderFile promisifyed to create html
@@ -47,13 +48,18 @@ let createRenderMethod = (conf) => {
             // write the file
             .then(()=>{
                 return writeFile(path_target, html, 'utf8');
+            })
+            .then(()=>{
+               
+                console.log('\u001b[36m > render: ' + path_target + '\u001b[39m');
+                
             });
         });
     });
 };
 
 // generate posts
-let genPosts = (opt) => {
+let genPosts = (opt, render) => {
     let path_script = path.resolve(__dirname, '../lib/for_post.js'),
     path_target = path.resolve(opt.dir_root, '_posts');
     console.log('generating blog posts...');
@@ -63,7 +69,8 @@ let genPosts = (opt) => {
         forFile: require(path_script),
         api: {
             dir_posts: path_target,
-            dir_public: opt.dir_public
+            dir_public: opt.dir_public,
+            render: render
         }
     });
 };
@@ -107,7 +114,7 @@ module.exports = (opt) => {
     })
     // gen posts
     .then(() => {
-        genPosts(opt);
+        genPosts(opt, render);
     })
     // if error
     .catch((e) => {
