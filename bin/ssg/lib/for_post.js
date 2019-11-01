@@ -2,7 +2,6 @@ let fs = require('fs'),
 path = require('path'),
 promisify = require('util').promisify,
 readFile = promisify(fs.readFile),
-writeFile = promisify(fs.writeFile),
 marked = require('marked'),
 header = require('../../../shared/lib/header/index.js');
 
@@ -46,18 +45,14 @@ module.exports = (api, item, next) => {
         let md = data.toString(),
         html = marked(md);
         // write the file
-        //return writeFile(dir_html, html, 'utf8');
         return api.render({
             layout: 'post',
             path: '/blog' + genPostPath(item, md),
             content: html
         });
     })
-    // then log gen file message
+    // next post
     .then(()=>{
-        //console.log('gen: ');
-        //console.log(api);
-        
         next();
     })
     // if and error happens

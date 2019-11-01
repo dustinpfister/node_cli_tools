@@ -97,24 +97,34 @@ let genIndex = (opt, render) => {
 };
 
 // exported method for gen.js
-module.exports = (opt) => {
-    
-    let render = function(){};
-    
+module.exports = (conf) => {
+    let render = function(){},
+    posts = [];
     // make sure public folder is there
-    mkdirp(opt.dir_public)
+    mkdirp(conf.dir_public)
     .then(()=>{
-        
-        return createRenderMethod(opt);
-        
+        console.log('creating posts object');
+        walk.walk({
+            dir: path.join( conf.dir_root, '_posts'),
+            forFile: require('./forfile_build_posts_object.js'),
+            api: {
+                posts: posts
+            }
+        });
     })
+    // create the render method
+    .then(()=>{
+        console.log('ready to render...');
+        return createRenderMethod(conf);
+    })
+    // gen the main index
     .then((newRenderMethod)=>{
         render = newRenderMethod;
-        genIndex(opt, render);
+        genIndex(conf, render);
     })
     // gen posts
     .then(() => {
-        genPosts(opt, render);
+        genPosts(conf, render);
     })
     // if error
     .catch((e) => {
