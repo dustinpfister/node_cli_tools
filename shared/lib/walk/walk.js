@@ -18,6 +18,8 @@ let walk = (opt) => {
     opt.dirMode = opt.dirMode || false;
     opt.onDone = opt.onDone || function () {};
     opt.start = opt.start === undefined ? true: opt.start;
+    
+    return new Promise((resolve, reject)=>{
     // readNext
     let i = 0;
     let readNext = (files) => {
@@ -50,6 +52,7 @@ let walk = (opt) => {
                         //console.log(i / files.length, opt.start, opt.dir);
                         if( i / files.length === 1 && opt.start){
                             opt.onDone();
+                            resolve();
                         }
                         readNext(files);
                     });
@@ -62,6 +65,8 @@ let walk = (opt) => {
         if (files) {
             readNext(files);
         }
+    });
+    
     });
 };
 // load a forFile Script

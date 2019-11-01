@@ -64,7 +64,7 @@ let genPosts = (opt, render) => {
     path_target = path.resolve(opt.dir_root, '_posts');
     console.log('generating blog posts...');
     // walk _posts
-    walk.walk({
+    return walk.walk({
         dir: path_target,
         forFile: require(path_script),
         api: {
@@ -104,7 +104,7 @@ module.exports = (conf) => {
     mkdirp(conf.dir_public)
     .then(()=>{
         console.log('creating posts object');
-        walk.walk({
+        return walk.walk({
             dir: path.join( conf.dir_root, '_posts'),
             forFile: require('./forfile_build_posts_object.js'),
             api: {
