@@ -19,14 +19,18 @@ let createPostsFolder = (target)=> {
     })
     // write demo post in new _posts folder
     .then((data) => {
-        console.log('copying demo post');
+        // copying demo post'
         let head = header.get(data),
         now = new Date(),
+        path_post = path.join(target, '_posts', 'first-post.md'),
         text = '';
         head.date = now;
         head.updated = now;
         text = header.updatePost(data, head);
-        return writeFile(path.join(target, '_posts', 'first-post.md'), text);
+        return writeFile(path_post, text)
+        .then(()=>{
+            console.log('\u001b[36m copy: ' + path_post + '\u001b[39m');
+        });
     });
     
 };
