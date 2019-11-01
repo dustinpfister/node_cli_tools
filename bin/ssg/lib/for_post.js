@@ -32,8 +32,6 @@ let genPostPath = (item, md) => {
 
 // main forFile method to be used with nc-walk
 module.exports = (api, item, next) => {
-
-    console.log('generating post files for public folder: ' + api.dir_public);
     // the dir for the new html file
     let dir_html = path.join( api.dir_public, path.basename(item.fileName, '.md') + '.html' );
     // is the item markdown?
@@ -46,12 +44,7 @@ module.exports = (api, item, next) => {
     // and write the new html file in the public folder
     .then((data) => {
         let md = data.toString(),
-        //head = header.get(md),
-        //date,
         html = marked(md);
-        
-        //console.log( genPostPath(item, md) );
-        
         // write the file
         //return writeFile(dir_html, html, 'utf8');
         return api.render({
@@ -59,12 +52,13 @@ module.exports = (api, item, next) => {
             path: '/blog' + genPostPath(item, md),
             content: html
         });
-        next();
     })
     // then log gen file message
     .then(()=>{
         //console.log('gen: ');
         //console.log(api);
+        
+        next();
     })
     // if and error happens
     .catch((e) => {
