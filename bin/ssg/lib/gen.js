@@ -36,13 +36,18 @@ let createRenderMethod = (conf) => {
             content: '',
             fileName: 'index.html'
         }, pageInfo);
+        
         // use ejs renderFile promisifyed to create html
         return renderFile( path_template_index, ejs_locals, ejs_options )
         // we now have html that can be saved
         .then((html)=>{
             // write the html file to the public folder
-            let dir_target = path.join(ejs_locals.conf.dir_public, ejs_locals.currentPage.path),
+            //let dir_target = path.join(conf.dir_public, ejs_locals.currentPage.path),
+            //  path_target = path.join(dir_target, ejs_locals.currentPage.fileName);
+            
+            let dir_target = path.join(conf.dir_public, pageInfo.path),
               path_target = path.join(dir_target, ejs_locals.currentPage.fileName);
+            
             // ensure dir for file
             return mkdirp(dir_target)
             // write the file
@@ -57,6 +62,7 @@ let createRenderMethod = (conf) => {
 };
 
 // generate posts
+/*
 let genPosts = (opt, render) => {
     let path_script = path.resolve(__dirname, '../lib/for_post.js'),
     path_target = path.resolve(opt.dir_root, '_posts');
@@ -72,6 +78,7 @@ let genPosts = (opt, render) => {
         }
     });
 };
+*/
 
 // generate root /index.html
 let genIndex = (opt, render) => {
@@ -119,12 +126,18 @@ module.exports = (conf) => {
     })
     // gen posts
     .then(() => {
-        posts.forEach((post)=>{
+        return Promise.all(posts.map((post)=>{
             
-            console.log(post);
-            
-        });
-        //return genPosts(conf, render);
+            return render({
+                posts: posts,
+                layout: 'post',
+                path: '/blog' + post.dir_post,
+                content: post.html
+            })
+        }));
+    })
+    .then(()=>{
+        console.log('build done.');
     })
     // if error
     .catch((e) => {

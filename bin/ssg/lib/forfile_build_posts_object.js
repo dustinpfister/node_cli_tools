@@ -15,6 +15,20 @@ let isMarkdown = (item) => {
     }
 };
 
+// genearte a post path in /yyyy/mm/dd/[fileName] format if there is a date in the header
+let genPostPath = (item, md) => {
+    let head = header.get(md),
+    str_date = '',
+    str_fn = '/' + path.basename(item.fileName, '.md');
+    if(head.date){
+        let d = new Date(head.date);
+        str_date = '/' + d.getFullYear() + 
+        '/' + ('00' + (d.getMonth() + 1)).slice(-2) + 
+        '/' + ('00' + d.getDate()).slice(-2);
+    }
+    return str_date + str_fn;
+};
+
 // The exported forFile method
 module.exports = (api, item, next) => {
     
@@ -31,7 +45,7 @@ module.exports = (api, item, next) => {
         let md = data.toString();
         api.posts.push({
             head: header.get(md),
-            //fileName: item.fileName,
+            dir_post: genPostPath(item, md),
             html: marked(md),
             sourceFile: item
         });
