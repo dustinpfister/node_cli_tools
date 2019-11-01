@@ -12,7 +12,7 @@ walk = require('../../../shared/lib/walk/walk.js');
 // and a render method will be retruned where only a custom tailer object
 // is passed as the one argument that chainges things like layout,
 // the current post to render and so forth.
-let createRenderMethod = (conf) => {
+let createRenderMethod = (conf, posts) => {
     // main index.ejs template file location
     let path_template_index = path.join(conf.dir_theme, 'index.ejs'),
     // ejs options
@@ -22,6 +22,7 @@ let createRenderMethod = (conf) => {
     // the locals object
     ejs_locals = {
         conf: conf,
+        posts: posts,
         path: '/',
         title: 'site_foo main index',
         currentPage:{}
@@ -115,7 +116,7 @@ module.exports = (conf) => {
     // create the render method
     .then(()=>{
         console.log('ready to render...');
-        return createRenderMethod(conf);
+        return createRenderMethod(conf, posts);
     })
     // gen the main index
     .then((newRenderMethod)=>{
@@ -127,7 +128,7 @@ module.exports = (conf) => {
         return Promise.all(posts.map((post)=>{
             
             return render({
-                posts: posts,
+                //posts: posts,
                 layout: 'post',
                 path: '/blog' + post.dir_post,
                 content: post.html
