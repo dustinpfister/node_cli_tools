@@ -22,6 +22,7 @@ let createRenderMethod = (conf) => {
     // the locals object
     ejs_locals = {
         conf: conf,
+        path: '/',
         title: 'site_foo main index',
         currentPage:{}
     };
@@ -39,15 +40,12 @@ let createRenderMethod = (conf) => {
         
         // use ejs renderFile promisifyed to create html
         return renderFile( path_template_index, ejs_locals, ejs_options )
+        //return renderFile( path_template_index, locals, ejs_options )
         // we now have html that can be saved
         .then((html)=>{
             // write the html file to the public folder
-            //let dir_target = path.join(conf.dir_public, ejs_locals.currentPage.path),
-            //  path_target = path.join(dir_target, ejs_locals.currentPage.fileName);
-            
-            let dir_target = path.join(conf.dir_public, pageInfo.path),
+            let dir_target = path.join(conf.dir_public, pageInfo.path || '/'),
               path_target = path.join(dir_target, ejs_locals.currentPage.fileName);
-            
             // ensure dir for file
             return mkdirp(dir_target)
             // write the file
