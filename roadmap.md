@@ -113,7 +113,7 @@ This is what needs to be done for each command in the /bin folder
 * (done) create a main render higher order function that is used in gen.js, and passed from gen.js to any additional assets that render html files.
 * (done) use new render method to render blog posts
 * (done) render posts in the _public folder following a /yyyy/mm/dd/[postFileName]/index.html pattren
-* generate a posts object that is passed as as a local for the ejs templates
+* (done) generate a posts object that is passed as as a local for the ejs templates
 * render pages for posts following a pattern of /page/[pageNum] where there are a fixed number of posts per page or postsPerPage value.
 * read conf.yaml and use pagesPerPost value.
 * built in helper methods for the locals ejs template object
