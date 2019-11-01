@@ -3,7 +3,8 @@ path = require('path'),
 promisify = require('util').promisify,
 readFile = promisify(fs.readFile),
 writeFile = promisify(fs.writeFile),
-marked = require('marked');
+marked = require('marked'),
+header = require('../../../shared/lib/header/index.js');
 
 // is markdown helper
 let isMarkdown = (item) => {
@@ -13,7 +14,21 @@ let isMarkdown = (item) => {
     } else {
         return Promise.reject(new Error('item in posts folder is not a markdown file'));
     }
-}
+};
+
+// genearte a post path in /yyyy/mm/dd/[fileName] format if there is a date in the header
+let genPostPath = (item, md) => {
+    let head = header.get(md),
+    str_date = '',
+    str_fn = '/' + path.basename(item.fileName, '.md');
+    if(head.date){
+        let d = new Date(head.date);
+        str_date = '/' + d.getFullYear() + 
+        '/' + ('00' + (d.getMonth() + 1)).slice(-2) + 
+        '/' + ('00' + d.getDate()).slice(-2);
+    }
+    return str_date + str_fn;
+};
 
 // main forFile method to be used with nc-walk
 module.exports = (api, item, next) => {
@@ -30,12 +45,18 @@ module.exports = (api, item, next) => {
     // use marked to convert post to html
     // and write the new html file in the public folder
     .then((data) => {
-        let html = marked(data.toString());
+        let md = data.toString(),
+        //head = header.get(md),
+        //date,
+        html = marked(md);
+        
+        //console.log( genPostPath(item, md) );
+        
         // write the file
         //return writeFile(dir_html, html, 'utf8');
         return api.render({
             layout: 'post',
-            path: '/blog',
+            path: '/blog' + genPostPath(item, md),
             content: html
         });
         next();
