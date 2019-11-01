@@ -50,9 +50,7 @@ let createRenderMethod = (conf) => {
                 return writeFile(path_target, html, 'utf8');
             })
             .then(()=>{
-               
                 console.log('\u001b[36m > render: ' + path_target + '\u001b[39m');
-                
             });
         });
     });
@@ -75,25 +73,21 @@ let genPosts = (opt, render) => {
     });
 };
 
+// generate root /index.html
 let genIndex = (opt, render) => {
-    
-    console.log('building main index file uisng theme at:');
-    console.log(opt.dir_theme);
-    
+    console.log('building main index file using theme at: ' + opt.dir_theme);
     let path_template_index = path.join(opt.dir_theme, 'index.ejs'),
     ejs_locals = {
         conf: opt,
         title: 'site_foo main index'
     },
     ejs_options = {root: opt.dir_theme};
-    
     //renderFile( path_template_index, ejs_locals, ejs_options )
-    render()
+    return render()
     .catch((e)=>{
         console.log('error building /index.html');
         console.log(e.message);
     });
-    
 };
 
 // exported method for gen.js
@@ -120,11 +114,11 @@ module.exports = (conf) => {
     // gen the main index
     .then((newRenderMethod)=>{
         render = newRenderMethod;
-        genIndex(conf, render);
+        return genIndex(conf, render);
     })
     // gen posts
     .then(() => {
-        genPosts(conf, render);
+        return genPosts(conf, render);
     })
     // if error
     .catch((e) => {

@@ -37,7 +37,7 @@ module.exports = (api, item, next) => {
     })
     // next post
     .then(()=>{
-        console.log('pushed post: ' + item.fileName);
+        console.log('\u001b[36m > pushed post: ' + item.fileName + '\u001b[39m');
         next();
     })
     // if and error happens
