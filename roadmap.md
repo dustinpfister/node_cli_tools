@@ -85,7 +85,22 @@ This is what needs to be done for each command in the /bin folder
 * (done) core theme needs a layout folder
 * (done) core theme should have a home layout
 * (done) core theme should have a post layout
-* generate .gitignore file for the site folder
+* generate a /conf.yaml file
+* conf.yaml title property
+* conf.yaml blog.postsPerPage property
+* conf.yaml blog.dir_blog property default: 'blog' (/blog/2017/02/04/first-post/index.html)
+* conf.yaml blog.dir_page property default: 'page' (/blog/page/2/index.html)
+* conf.yaml blog.genBread property default: true (will generate index.html files for each dir)
+* conf.yaml blog.genCats property default: true (generate catagory pages)
+* conf.yaml blog.genTags property default: true (generate tag pages)
+* conf.yaml blog.index.posts default: true (index meta tags for blog posts only, no-follow for others)
+* conf.yaml blog.index.pages default: false
+* conf.yaml blog.index.bread default: false
+* conf.yaml blog.index.cats default: false
+* conf.yaml blog.index.tags default: false
+* conf.yaml theme property
+* conf.yaml sitemap property
+* generate /.gitignore file for the site folder
 * make the site folder a git folder
 * make a first commit
 
@@ -96,9 +111,11 @@ This is what needs to be done for each command in the /bin folder
 * (done) The /bin/lib/walk.js file should be used as a normal nodejs lib and not a command via the child_process module
 * (done) nc-ssg should make use of a theme folder in the project folder
 * (done) create a main render higher order function that is used in gen.js, and passed from gen.js to any additional assets that render html files.
-* use new render method to render blog posts
+* (done) use new render method to render blog posts
 * render posts in the _public folder following a /yyyy/mm/dd/[postFileName]/index.html pattren
 * generate a posts object that is passed as as a local for the ejs templates
+* render pages for posts following a pattern of /page/[pageNum] where there are a fixed number of posts per page or postsPerPage value.
+* read conf.yaml and use pagesPerPost value.
 * built in helper methods for the locals ejs template object
 * nc-ssg should create a main index.js file
 * posts should be created in in a /[yyyy]/[mm]/[dd]/[name-of-post]/index.html url pattern
