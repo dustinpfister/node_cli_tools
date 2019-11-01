@@ -96,6 +96,7 @@ module.exports = (conf) => {
     posts = [];
     // make sure public folder is there
     mkdirp(conf.dir_public)
+    // create posts object
     .then(()=>{
         console.log('creating posts object');
         return walk.walk({
@@ -118,7 +119,12 @@ module.exports = (conf) => {
     })
     // gen posts
     .then(() => {
-        return genPosts(conf, render);
+        posts.forEach((post)=>{
+            
+            console.log(post);
+            
+        });
+        //return genPosts(conf, render);
     })
     // if error
     .catch((e) => {

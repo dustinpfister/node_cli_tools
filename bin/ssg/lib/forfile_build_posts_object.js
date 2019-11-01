@@ -31,8 +31,9 @@ module.exports = (api, item, next) => {
         let md = data.toString();
         api.posts.push({
             head: header.get(md),
-            fileName: item.fileName,
-            html: marked(md)
+            //fileName: item.fileName,
+            html: marked(md),
+            sourceFile: item
         });
     })
     // next post
