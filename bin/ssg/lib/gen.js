@@ -7,6 +7,19 @@ writeFile = promisify(fs.writeFile),
 path = require('path'),
 walk = require('../../../shared/lib/walk/walk.js');
 
+// lodash _.chunk alterative parked here for now
+// becuase I am not sure if I want to make lodash part of the stack
+// just yet. Also I am not sure if I will need to use chunk elseware.
+let chunk = (arr, chunkSize) => {
+    let i = 0,newArr = [];
+    while(i < arr.length){
+        newArr.push( arr.slice(i, i + chunkSize) );
+        i += chunkSize;
+    }
+    return newArr;
+};
+
+
 // create a render method that will be used to generate all html files
 // the root dir of the theme, and locals object will be closed over
 // and a render method will be retruned where only a custom tailer object
@@ -117,10 +130,10 @@ module.exports = (conf) => {
                 let d1 = new Date(a.head.date),
                     d2 = new Date(b.head.date);
                 if(d1.getTime() > d2.getTime()){
-                    return 1;
+                    return -1;
                 }
                 if(d1.getTime() < d2.getTime()){
-                    return -1;
+                    return 1;
                 }
                 return 0;
             });
@@ -136,7 +149,7 @@ module.exports = (conf) => {
         render = newRenderMethod;
         return genIndex(conf, render);
     })
-    // gen blog posts
+    // gen blog posts '/blog/[yyyy]/[mm]/[dd]/[postName]/index.html'
     .then(() => {
         console.log('rendering blog post files...');
         return Promise.all(posts.map((post)=>{
@@ -148,18 +161,21 @@ module.exports = (conf) => {
             });
         }));
     })
-    // gen blog pages
+    // gen blog post pages
     .then(()=>{
         
+        //console.log( chunk(posts, 3).length )
         
-        console.log( posts.map((post)=>{
+        console.log(posts.length);
+        console.log( chunk(posts.map((post)=>{
             
             return {
                 head: post.head,
                 dir_post: post.dir_post
             };
             
-        }));
+        }),3) );
+    
 
         
     })
