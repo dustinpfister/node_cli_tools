@@ -157,6 +157,7 @@ module.exports = (conf) => {
                 //posts: posts,
                 layout: 'post',
                 path: '/blog' + post.dir_post,
+                head: post.head,
                 content: post.html
             });
         }));

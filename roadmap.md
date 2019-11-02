@@ -106,10 +106,10 @@ This is what needs to be done for each command in the /bin folder
 
 ### nc-sspub
 
-* Serve Static PUBlic command. This just starts a simple static web server for the public folder.
-* can set the port number via -p option
-* can set the folder location via -t option
-* using express.static for _public folder
+* (done) Serve Static PUBlic command. This just starts a simple static web server for the public folder.
+* (done) can set the port number via -p option
+* (done) can set the folder location via -t option
+* (done) using express.static for _public folder
 
 ### nc-ssg
 
@@ -128,7 +128,6 @@ This is what needs to be done for each command in the /bin folder
 * for the post object have an api where there is a md property for the raw markdown, and an html() and text() method.
 * read conf.yaml and use pagesPerPost value.
 * built in helper methods for the locals ejs template object
-* posts should be created in in a /[yyyy]/[mm]/[dd]/[name-of-post]/index.html url pattern
 
 
 ### nc-walk
