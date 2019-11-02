@@ -47,6 +47,7 @@ module.exports = (api, item, next) => {
             head: header.get(md),
             dir_post: genPostPath(item, md),
             html: marked(md),
+            md: md,
             sourceFile: item
         });
     })

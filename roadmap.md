@@ -125,9 +125,10 @@ This is what needs to be done for each command in the /bin folder
 * (done) generate a posts object that is passed as as a local for the ejs templates
 * (done) render pages for posts following a pattern.
 * (done) page files should be created in a /page/[pageNumber] url pattern
+* built in helper methods for the locals ejs template object
 * for the post object have an api where there is a md property for the raw markdown, and an html() and text() method.
 * read conf.yaml and use pagesPerPost value.
-* built in helper methods for the locals ejs template object
+
 
 
 ### nc-walk

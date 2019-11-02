@@ -2,6 +2,7 @@ let ejs = require('ejs'),
 fs = require('fs'),
 promisify = require('util').promisify,
 mkdirp = promisify(require('mkdirp')),
+marked = require('marked'),
 renderFile = promisify(ejs.renderFile),
 writeFile = promisify(fs.writeFile),
 path = require('path'),
@@ -119,13 +120,17 @@ module.exports = (conf) => {
         console.log('rendering blog post files...');
         return Promise.all(posts.map((post)=>{
             return render({
-                //posts: posts,
                 title: post.head.title,
                 path: '/blog' + post.dir_post,
                 currentPage:{
                     layout: 'post',
                     head: post.head,
-                    content: post.html
+                    //post: post,
+                    md: post.md
+                    //content: post.html
+                },
+                genPostHTML: function(){
+                    return marked(this.currentPage.md);
                 }
             });
         }));
