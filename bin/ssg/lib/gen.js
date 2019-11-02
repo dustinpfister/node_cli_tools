@@ -6,7 +6,8 @@ marked = require('marked'),
 renderFile = promisify(ejs.renderFile),
 writeFile = promisify(fs.writeFile),
 path = require('path'),
-walk = require('../../../shared/lib/walk/walk.js');
+walk = require('../../../shared/lib/walk/walk.js'),
+header = require('../../../shared/lib/header/index.js');
 // lodash _.chunk alterative parked here for now
 // becuase I am not sure if I want to make lodash part of the stack
 // just yet. Also I am not sure if I will need to use chunk elseware.
@@ -130,7 +131,7 @@ module.exports = (conf) => {
                     //content: post.html
                 },
                 genPostHTML: function(){
-                    return marked(this.currentPage.md);
+                    return marked(header.remove(this.currentPage.md));
                 }
             });
         }));
