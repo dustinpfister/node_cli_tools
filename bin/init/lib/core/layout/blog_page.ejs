@@ -5,3 +5,11 @@
 <% currentPage.page.forEach((post)=>{ %>
   <p><%= post.title %></p>
 <% }); %>
+
+<p>page#: <%= currentPage.pageNum %></p>
+<% if(currentPage.pageNum > 1){ %>
+  <span><a href="/blog/page/<%= currentPage.pageNum - 1 %>/index.html" >Prev</a></span>
+<% } %>
+<% if(currentPage.pageNum < currentPage.totalPages){ %>
+  <span><a href="/blog/page/<%= currentPage.pageNum + 1 %>/index.html" >Next</a></span>
+<% } %>

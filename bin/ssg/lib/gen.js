@@ -185,6 +185,7 @@ module.exports = (conf) => {
                 path: '/blog/page/' + pageNum,
                 pageNum: pageNum,
                 page: page,
+                totalPages: pages.length,
                 content: ''
             })
             
