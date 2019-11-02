@@ -3,7 +3,7 @@
 <p>page#: <%= currentPage.pageNum %></p>
 
 <% currentPage.page.forEach((post)=>{ %>
-  <p><%= post.title %></p>
+  <p><a href="<%- '/blog' + post.dir_post + '/index.html' %>" ><%= post.title %></a></p>
 <% }); %>
 
 <p>page#: <%= currentPage.pageNum %></p>
