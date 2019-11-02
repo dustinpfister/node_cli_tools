@@ -104,23 +104,32 @@ This is what needs to be done for each command in the /bin folder
 * make the site folder a git folder
 * make a first commit
 
+### nc-sspub
+
+* Serve Static PUBlic command. This just starts a simple static web server for the public folder.
+* can set the port number via -p option
+* can set the folder location via -t option
+* using express.static for _public folder
+
 ### nc-ssg
 
+* (done) Static Site Generator command
 * (done) new default command started
 * (done) new gen command started
 * (done) The /bin/lib/walk.js file should be used as a normal nodejs lib and not a command via the child_process module
 * (done) nc-ssg should make use of a theme folder in the project folder
 * (done) create a main render higher order function that is used in gen.js, and passed from gen.js to any additional assets that render html files.
 * (done) use new render method to render blog posts
+* (done) nc-ssg should create a main index.js file
 * (done) render posts in the _public folder following a /yyyy/mm/dd/[postFileName]/index.html pattren
 * (done) generate a posts object that is passed as as a local for the ejs templates
-* render pages for posts following a pattern of /page/[pageNum] where there are a fixed number of posts per page or postsPerPage value.
+* (done) render pages for posts following a pattern.
+* (done) page files should be created in a /page/[pageNumber] url pattern
 * for the post object have an api where there is a md property for the raw markdown, and an html() and text() method.
 * read conf.yaml and use pagesPerPost value.
 * built in helper methods for the locals ejs template object
-* nc-ssg should create a main index.js file
 * posts should be created in in a /[yyyy]/[mm]/[dd]/[name-of-post]/index.html url pattern
-* page files should be created in a /page/[pageNumber] url pattern
+
 
 ### nc-walk
 

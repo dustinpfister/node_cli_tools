@@ -7,6 +7,7 @@
     "nc-init": "bin/init/index.js",
     "nc-walk": "bin/walk/index.js",
     "nc-ssg": "bin/ssg/index.js",
+    "nc-sspub": "bin/sspub/index.js",
     "nc-edit": "bin/edit/index.js",
     "nc-hexer": "bin/hexer/index.js"
   },
