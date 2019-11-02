@@ -111,7 +111,20 @@ module.exports = (conf) => {
             api: {
                 posts: posts
             }
-        });
+        }).then((api)=>{
+            // sort posts from oldest to newest
+            api.posts.sort(function(a, b){
+                let d1 = new Date(a.head.date),
+                    d2 = new Date(b.head.date);
+                if(d1.getTime() > d2.getTime()){
+                    return 1;
+                }
+                if(d1.getTime() < d2.getTime()){
+                    return -1;
+                }
+                return 0;
+            });
+        })
     })
     // create the render method
     .then(()=>{
@@ -123,17 +136,32 @@ module.exports = (conf) => {
         render = newRenderMethod;
         return genIndex(conf, render);
     })
-    // gen posts
+    // gen blog posts
     .then(() => {
+        console.log('rendering blog post files...');
         return Promise.all(posts.map((post)=>{
-            
             return render({
                 //posts: posts,
                 layout: 'post',
                 path: '/blog' + post.dir_post,
                 content: post.html
-            })
+            });
         }));
+    })
+    // gen blog pages
+    .then(()=>{
+        
+        
+        console.log( posts.map((post)=>{
+            
+            return {
+                head: post.head,
+                dir_post: post.dir_post
+            };
+            
+        }));
+
+        
     })
     .then(()=>{
         console.log('build done.');

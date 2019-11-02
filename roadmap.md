@@ -115,6 +115,7 @@ This is what needs to be done for each command in the /bin folder
 * (done) render posts in the _public folder following a /yyyy/mm/dd/[postFileName]/index.html pattren
 * (done) generate a posts object that is passed as as a local for the ejs templates
 * render pages for posts following a pattern of /page/[pageNum] where there are a fixed number of posts per page or postsPerPage value.
+* for the post object have an api where there is a md property for the raw markdown, and an html() and text() method.
 * read conf.yaml and use pagesPerPost value.
 * built in helper methods for the locals ejs template object
 * nc-ssg should create a main index.js file
