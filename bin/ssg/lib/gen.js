@@ -164,17 +164,31 @@ module.exports = (conf) => {
     // gen blog post pages
     .then(()=>{
         
-        //console.log( chunk(posts, 3).length )
-        
-        console.log(posts.length);
-        console.log( chunk(posts.map((post)=>{
+        let pages = chunk(posts.map((post)=>{
             
             return {
-                head: post.head,
+                title: post.head.title,
                 dir_post: post.dir_post
             };
             
-        }),3) );
+        }),3);
+        
+        return Promise.all( pages.map((page, i)=>{
+            
+            //console.log(page);
+            //console.log('*****');
+            
+            let pageNum = i + 1;
+            
+            return render({
+                layout: 'blog_page',
+                path: '/blog/page/' + pageNum,
+                pageNum: pageNum,
+                page: page,
+                content: ''
+            })
+            
+        }) );
     
 
         

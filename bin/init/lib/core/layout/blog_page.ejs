@@ -1,0 +1,7 @@
+<h1>Blog Page</h1>
+
+<p>page#: <%= currentPage.pageNum %></p>
+
+<% currentPage.page.forEach((post)=>{ %>
+  <p><%= post.title %></p>
+<% }); %>
