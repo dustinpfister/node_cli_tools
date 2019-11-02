@@ -130,6 +130,10 @@ module.exports = (conf) => {
                     md: post.md
                     //content: post.html
                 },
+                getFormatedDate: function(date){
+                    let d = new Date(date || this.currentPage.head.date);
+                    return d.getFullYear()+ '-' + (d.getMonth() +1 ) + '-' + d.getDate();
+                },
                 genPostHTML: function(){
                     return marked(header.remove(this.currentPage.md));
                 }

@@ -1,4 +1,10 @@
 <h1><%= currentPage.head.title %></h1>
+
+<span> 
+Date: <%= getFormatedDate() %><br>
+Last Edit: <%= getFormatedDate(currentPage.head.updated) %>
+</span>
+
 <br>
 
 <%- genPostHTML() %>
