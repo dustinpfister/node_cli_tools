@@ -6,7 +6,6 @@ renderFile = promisify(ejs.renderFile),
 writeFile = promisify(fs.writeFile),
 path = require('path'),
 walk = require('../../../shared/lib/walk/walk.js');
-
 // lodash _.chunk alterative parked here for now
 // becuase I am not sure if I want to make lodash part of the stack
 // just yet. Also I am not sure if I will need to use chunk elseware.
@@ -18,8 +17,6 @@ let chunk = (arr, chunkSize) => {
     }
     return newArr;
 };
-
-
 // create a render method that will be used to generate all html files
 // the root dir of the theme, and locals object will be closed over
 // and a render method will be retruned where only a custom tailer object
@@ -31,27 +28,12 @@ let createRenderMethod = (conf, posts) => {
     // ejs options
     ejs_options = {
         root: conf.dir_theme
-    },
-    // the locals object
-    ejs_locals = {
-        conf: conf,
-        posts: posts,
-        path: '/',
-        title: 'site_foo main index'
     };
     // return a resolved Promise with the render method
     return Promise.resolve(function(pageInfo){
         // update currentPage info default values
         // will result in a main index.html build
         pageInfo = pageInfo || {};
-        //ejs_locals.currentPage = Object.assign({},{
-        //    layout: 'home',
-        //    path: '/',
-        //    content: '',
-        //    fileName: 'index.html'
-        //}, pageInfo);
-        
-        //console.log('*********');
         let locals = (Object.assign({}, {
             conf: conf,
             posts: posts,
@@ -62,20 +44,12 @@ let createRenderMethod = (conf, posts) => {
                 fileName:'index.html'
             }
         }, pageInfo));
-        //console.log('current locals object');
-        //console.log(ejs_locals);
-        //console.log('new locals object');
-        //console.log(locals);
-        //console.log('**********');
-        
         // use ejs renderFile promisifyed to create html
         return renderFile( path_template_index, locals, ejs_options )
         //return renderFile( path_template_index, locals, ejs_options )
         // we now have html that can be saved
         .then((html)=>{
             // write the html file to the public folder
-            //let dir_target = path.join(conf.dir_public, pageInfo.path || '/'),
-              //path_target = path.join(dir_target, ejs_locals.currentPage.fileName);
             let dir_target = path.join(conf.dir_public, locals.path || '/'),
               path_target = path.join(dir_target, 'index.html');
             // ensure dir for file
@@ -90,29 +64,9 @@ let createRenderMethod = (conf, posts) => {
         });
     });
 };
-
-// generate posts
-/*
-let genPosts = (opt, render) => {
-    let path_script = path.resolve(__dirname, '../lib/for_post.js'),
-    path_target = path.resolve(opt.dir_root, '_posts');
-    console.log('generating blog posts...');
-    // walk _posts
-    return walk.walk({
-        dir: path_target,
-        forFile: require(path_script),
-        api: {
-            dir_posts: path_target,
-            dir_public: opt.dir_public,
-            render: render
-        }
-    });
-};
-*/
-
 // generate root /index.html
 let genIndex = (opt, render) => {
-    console.log('building main index file using theme at: ' + opt.dir_theme);
+    console.log('rendering main index file using theme at: ' + opt.dir_theme);
     let path_template_index = path.join(opt.dir_theme, 'index.ejs'),
     ejs_locals = {
         conf: opt,
@@ -126,7 +80,6 @@ let genIndex = (opt, render) => {
         console.log(e.message);
     });
 };
-
 // exported method for gen.js
 module.exports = (conf) => {
     let render = function(){},
@@ -185,20 +138,17 @@ module.exports = (conf) => {
     })
     // gen blog post pages
     .then(()=>{
-        
+        console.log('rendering blog post page files...');
+        // chunk the posts
         let pages = chunk(posts.map((post)=>{
-            
             return {
                 title: post.head.title,
                 dir_post: post.dir_post
             };
-            
         }),3);
-        
+        // gen pages
         return Promise.all( pages.map((page, i)=>{
-            
             let pageNum = i + 1;
-            
             return render({
                 path: '/blog/page/' + pageNum,
                 currentPage:{
@@ -209,11 +159,7 @@ module.exports = (conf) => {
                     content: ''
                 }
             })
-            
         }));
-    
-
-        
     })
     .then(()=>{
         console.log('build done.');
