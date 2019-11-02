@@ -51,8 +51,8 @@ let walk = (opt) => {
                     opt.forFile(opt.api, item, function () {
                         //console.log(i / files.length, opt.start, opt.dir);
                         if( i / files.length === 1 && opt.start){
-                            opt.onDone();
-                            resolve();
+                            opt.onDone(opt.api);
+                            resolve(opt.api);
                         }
                         readNext(files);
                     });
