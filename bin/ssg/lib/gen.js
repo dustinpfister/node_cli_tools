@@ -38,7 +38,7 @@ let createRenderMethod = (conf, posts) => {
             conf: conf,
             posts: posts,
             path: '/',
-            title: 'site_foo main index',
+            title: 'site_foo',
             currentPage:{
                 layout: 'home',
                 fileName:'index.html'
@@ -67,13 +67,7 @@ let createRenderMethod = (conf, posts) => {
 // generate root /index.html
 let genIndex = (opt, render) => {
     console.log('rendering main index file using theme at: ' + opt.dir_theme);
-    let path_template_index = path.join(opt.dir_theme, 'index.ejs'),
-    ejs_locals = {
-        conf: opt,
-        title: 'site_foo main index'
-    },
-    ejs_options = {root: opt.dir_theme};
-    //renderFile( path_template_index, ejs_locals, ejs_options )
+    // render /index.html
     return render()
     .catch((e)=>{
         console.log('error building /index.html');
@@ -126,10 +120,10 @@ module.exports = (conf) => {
         return Promise.all(posts.map((post)=>{
             return render({
                 //posts: posts,
+                title: post.head.title,
                 path: '/blog' + post.dir_post,
                 currentPage:{
                     layout: 'post',
-                    //path: '/blog' + post.dir_post,
                     head: post.head,
                     content: post.html
                 }
@@ -151,6 +145,7 @@ module.exports = (conf) => {
             let pageNum = i + 1;
             return render({
                 path: '/blog/page/' + pageNum,
+                title: 'page ' + pageNum,
                 currentPage:{
                     layout: 'blog_page',
                     pageNum: pageNum,
