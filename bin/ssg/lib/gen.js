@@ -1,13 +1,23 @@
-let ejs = require('ejs'),
+// native node
+let path = require('path'),
 fs = require('fs'),
 promisify = require('util').promisify,
-mkdirp = promisify(require('mkdirp')),
 marked = require('marked'),
-renderFile = promisify(ejs.renderFile),
 writeFile = promisify(fs.writeFile),
-path = require('path'),
-walk = require('../../../shared/lib/walk/walk.js'),
-header = require('../../../shared/lib/header/index.js');
+// npm packs
+ejs = require('ejs'),
+renderFile = promisify(ejs.renderFile),
+mkdirp = promisify(require('mkdirp')),
+// my libs
+dir_libs = '../../../shared/lib/',
+walk = require(path.join(dir_libs, 'walk/walk.js')),
+header = require(path.join(dir_libs, 'header/index.js')),
+copyDir = require(path.join(dir_libs, 'copy-dir/index.js'));
+
+
+
+
+
 // lodash _.chunk alterative parked here for now
 // becuase I am not sure if I want to make lodash part of the stack
 // just yet. Also I am not sure if I will need to use chunk elseware.
@@ -165,6 +175,16 @@ module.exports = (conf) => {
                 }
             })
         }));
+    })
+    // copy source from theme
+    .then(()=>{
+        let opt = {
+            onCopy: function(target){
+                console.log('\u001b[36m > copy: ' + target + '\u001b[39m');
+            }
+        };
+        return copyDir(path.join(conf.dir_theme, 'source'), conf.dir_public, opt);
+        
     })
     .then(()=>{
         console.log('build done.');
