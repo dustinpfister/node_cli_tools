@@ -129,9 +129,14 @@ This is what needs to be done for each command in the /bin folder
 * (done) page files should be created in a /page/[pageNumber] url pattern
 * (done) built in helper methods for the locals ejs template object
 * (done) have a genPostHTML theme helepr, and others
+* (done) copy over source folder from theme to _public folder
 
-* copy over source folder from theme to _public folder
-
+* make the core theme look at least a little better, work on style a little, add a header image.
+* have a system where you can have just the first few lines of text for use in blog pages, and the home page.
+* cat pages
+* tag pages
+* Generate /blog/index.html that can be used to link to /page/1/index.html, cats/[catName]/page/1/html for all cats, as well as /blog/[yyyy]/index.html for all years, and the same for tag pages
+* see if I can fix the isshue with copyDir causing anything that comes after it to stop when I change the code to return a promise
 * read conf.yaml and use pagesPerPost value.
 
 
