@@ -37,29 +37,47 @@ let createRenderMethod = (conf, posts) => {
         conf: conf,
         posts: posts,
         path: '/',
-        title: 'site_foo main index',
-        currentPage:{}
+        title: 'site_foo main index'
     };
     // return a resolved Promise with the render method
     return Promise.resolve(function(pageInfo){
         // update currentPage info default values
         // will result in a main index.html build
         pageInfo = pageInfo || {};
-        ejs_locals.currentPage = Object.assign({},{
-            layout: 'home',
+        //ejs_locals.currentPage = Object.assign({},{
+        //    layout: 'home',
+        //    path: '/',
+        //    content: '',
+        //    fileName: 'index.html'
+        //}, pageInfo);
+        
+        //console.log('*********');
+        let locals = (Object.assign({}, {
+            conf: conf,
+            posts: posts,
             path: '/',
-            content: '',
-            fileName: 'index.html'
-        }, pageInfo);
+            title: 'site_foo main index',
+            currentPage:{
+                layout: 'home',
+                fileName:'index.html'
+            }
+        }, pageInfo));
+        //console.log('current locals object');
+        //console.log(ejs_locals);
+        //console.log('new locals object');
+        //console.log(locals);
+        //console.log('**********');
         
         // use ejs renderFile promisifyed to create html
-        return renderFile( path_template_index, ejs_locals, ejs_options )
+        return renderFile( path_template_index, locals, ejs_options )
         //return renderFile( path_template_index, locals, ejs_options )
         // we now have html that can be saved
         .then((html)=>{
             // write the html file to the public folder
-            let dir_target = path.join(conf.dir_public, pageInfo.path || '/'),
-              path_target = path.join(dir_target, ejs_locals.currentPage.fileName);
+            //let dir_target = path.join(conf.dir_public, pageInfo.path || '/'),
+              //path_target = path.join(dir_target, ejs_locals.currentPage.fileName);
+            let dir_target = path.join(conf.dir_public, locals.path || '/'),
+              path_target = path.join(dir_target, 'index.html');
             // ensure dir for file
             return mkdirp(dir_target)
             // write the file
@@ -155,10 +173,13 @@ module.exports = (conf) => {
         return Promise.all(posts.map((post)=>{
             return render({
                 //posts: posts,
-                layout: 'post',
                 path: '/blog' + post.dir_post,
-                head: post.head,
-                content: post.html
+                currentPage:{
+                    layout: 'post',
+                    //path: '/blog' + post.dir_post,
+                    head: post.head,
+                    content: post.html
+                }
             });
         }));
     })
@@ -176,21 +197,20 @@ module.exports = (conf) => {
         
         return Promise.all( pages.map((page, i)=>{
             
-            //console.log(page);
-            //console.log('*****');
-            
             let pageNum = i + 1;
             
             return render({
-                layout: 'blog_page',
                 path: '/blog/page/' + pageNum,
-                pageNum: pageNum,
-                page: page,
-                totalPages: pages.length,
-                content: ''
+                currentPage:{
+                    layout: 'blog_page',
+                    pageNum: pageNum,
+                    page: page,
+                    totalPages: pages.length,
+                    content: ''
+                }
             })
             
-        }) );
+        }));
     
 
         
