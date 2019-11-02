@@ -3,6 +3,7 @@
     <title><%= title %></title>
   </head>
   <body>
-    <%- include('./layout/' + currentPage.layout, this); %>
+    <%- include('./nav', this) %>
+    <%- include('./layout/' + currentPage.layout, this) %>
   </body>
 </html>
