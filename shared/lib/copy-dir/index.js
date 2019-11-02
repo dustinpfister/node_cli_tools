@@ -35,11 +35,17 @@ module.exports = (src, targetRoot, opt) => {
         },
         forFile: (api, item, next)=>{
             
-            let rel_path = '.' + item.path.split(path.dirname(src)).join(''),
+            let rel_path = '.' + item.path.split(src).join(''),
             rel_dir = path.dirname(rel_path),
             // absolute target path to create if it is not there
             dir_current_target = path.join(api.dir_target, rel_dir),
             path_current_target = path.join(dir_current_target, item.fileName);
+            
+            //console.log( src );
+            //console.log( item.path.split(src).join(''));
+            
+            //console.log( rel_path );
+            //console.log( path_current_target );
 
             mkdirp(dir_current_target)
             .then(()=>{
