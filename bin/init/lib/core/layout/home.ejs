@@ -1,7 +1,12 @@
 <h1>HOME</h1>
 
-<% posts.forEach((post)=>{ %>
+<h2>Latest Post:</h2>
 
-    <p><%- post.head.title %></p>
+<% var post = posts[0]; %>
+<a href="<%- '/blog' + post.dir_post + '/index.html' %>" > Title: <%- post.head.title %></a><br>
+Path: <%-  post.dir_post %><br>
 
-<% }); %>
+<br>
+
+
+
