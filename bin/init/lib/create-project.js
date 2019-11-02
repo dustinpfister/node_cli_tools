@@ -38,7 +38,7 @@ let createPostsFolder = (target)=> {
 // create core theme
 createThemesFolder = (target)=> {
     console.log('creating _themes folder with starting core theme.');
-    let dir_target = path.join(target, '_themes');
+    let dir_target = path.join(target, '_themes/core');
     mkdirp(dir_target)
     .then(()=>{
         let opt = {
