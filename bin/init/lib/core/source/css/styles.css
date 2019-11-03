@@ -12,6 +12,12 @@ body{
 }
 h1,h2,h3,h4,h5,h6{
     color:#000000;
+    margin-top:25px;
+    margin-bottom:25px;
+}
+p{
+    margin-top:10px;
+    margin-bottom:10px;
 }
 div{
     position:relative;
@@ -35,5 +41,5 @@ div{
     float: bottom;
 }
 #container_layout{
-    padding: 20px;
+    padding: 25px;
 }
