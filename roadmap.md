@@ -85,8 +85,13 @@ This is what needs to be done for each command in the /bin folder
 * (done) core theme needs a layout folder
 * (done) core theme should have a home layout
 * (done) core theme should have a post layout
-* add a source folder for the core theme
-* have a css folder in the core theme folder with a styles.css file
+* (done) add a source folder for the core theme
+* (done) have a css folder in the core theme folder with a styles.css file
+
+* The core theme has a default font other than browser default set in styles.css.
+* The core theme has a main wrap container div
+* The core theme has a header for each page
+
 * generate a /conf.yaml file
 * conf.yaml title property
 * conf.yaml blog.postsPerPage property
@@ -131,7 +136,6 @@ This is what needs to be done for each command in the /bin folder
 * (done) have a genPostHTML theme helepr, and others
 * (done) copy over source folder from theme to _public folder
 
-* make the core theme look at least a little better, work on style a little, add a header image.
 * have a system where you can have just the first few lines of text for use in blog pages, and the home page.
 * cat pages
 * tag pages
