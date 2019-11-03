@@ -4,7 +4,13 @@
     <link rel="stylesheet" href="/css/styles.css">
   </head>
   <body>
-    <%- include('./nav', this) %>
-    <%- include('./layout/' + currentPage.layout, this) %>
+    <div id="container_main">
+      <div id="container_header">
+        <%- include('./nav', this) %>
+      </div>
+      <div id="container_layout">
+        <%- include('./layout/' + currentPage.layout, this) %>
+      </div>
+    </div>
   </body>
 </html>

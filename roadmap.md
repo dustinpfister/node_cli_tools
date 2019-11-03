@@ -88,9 +88,10 @@ This is what needs to be done for each command in the /bin folder
 * (done) add a source folder for the core theme
 * (done) have a css folder in the core theme folder with a styles.css file
 
-* The core theme has a default font other than browser default set in styles.css.
-* The core theme has a main wrap container div
-* The core theme has a header for each page
+* (done) The core theme has a default font other than browser default set in styles.css.
+* (done) The core theme has a main wrap container div
+* (done) The core theme has a header for each page
+* some basic style for each container
 
 * generate a /conf.yaml file
 * conf.yaml title property

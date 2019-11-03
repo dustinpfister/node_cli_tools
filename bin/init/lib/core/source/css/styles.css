@@ -1,10 +1,39 @@
+/* ALL */
 *{
-    font-family: arial,Georgia;
+    font-family: arial,georgia;
+    margin:0px;
+    padding:0px;
 }
+
+/* ELEMENTS */
 body{
-    background:#cfcfcf;
+    background:#afafaf;
     color:#2a2a2a;
 }
 h1,h2,h3,h4,h5,h6{
     color:#000000;
+}
+div{
+    position:relative;
+}
+
+/* CONTAINERS */
+#container_main{
+    width:80%;
+    background:#cfcfcf;
+    margin:0px;
+    margin-left:10%;
+}
+#container_header{
+    height:150px;
+    background:#bfbfbf;
+}
+#container_nav{
+    position:absolute;
+    bottom:10px;
+    left:10px;
+    float: bottom;
+}
+#container_layout{
+    padding: 20px;
 }
