@@ -91,7 +91,7 @@ This is what needs to be done for each command in the /bin folder
 * (done) The core theme has a default font other than browser default set in styles.css.
 * (done) The core theme has a main wrap container div
 * (done) The core theme has a header for each page
-* some basic style for each container
+* (done) some basic style for each container
 
 * generate a /conf.yaml file
 * conf.yaml title property
