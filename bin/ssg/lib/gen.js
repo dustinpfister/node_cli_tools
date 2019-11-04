@@ -80,7 +80,30 @@ let createRenderMethod = (conf, posts) => {
 let genIndex = (opt, render) => {
     console.log('rendering main index file using theme at: ' + opt.dir_theme);
     // render /index.html
-    return render()
+    return render({
+        
+        // get the plain text form of the post content
+        getPostText: function(postMD){
+            var renderText = new marked.Renderer();
+            renderText.paragraph = function (text) {
+                return text;
+            };
+            renderText.heading = function (text, level) {
+                return text;
+            };
+            renderText.code = function (text, level) {
+                return '';
+            };
+            renderText.pre = function (text, level) {
+                return '';
+            };
+            renderText.link = function (href, level, text) {
+                return text;
+            };
+            return marked(header.remove(postMD),{renderer: renderText});
+        }
+        
+    })
     .catch((e)=>{
         console.log('error building /index.html');
         console.log(e.message);
@@ -140,12 +163,30 @@ module.exports = (conf) => {
                     md: post.md
                     //content: post.html
                 },
+                // return a formated date for use in a theme
                 getFormatedDate: function(date){
                     let d = new Date(date || this.currentPage.head.date);
                     return d.getFullYear()+ '-' + (d.getMonth() +1 ) + '-' + d.getDate();
                 },
+                // get the html of the post content using marked
                 genPostHTML: function(){
                     return marked(header.remove(this.currentPage.md));
+                },
+                // get the plain text form of the post content
+                genPostText: function(){
+                    var render = new marked.Renderer();
+                    render.paragraph = function (text) {
+                        return text;
+                    };
+                    render.heading = function (text, level) {
+                        return text;
+                    };
+                    return render(this.currentPage.md);
+                },
+                // return the first n words of text from a post
+                clipContent: function(wordCount){
+                    wordCount = wordCount || 100;
+                    return '';
                 }
             });
         }));
