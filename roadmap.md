@@ -137,6 +137,37 @@ This is what needs to be done for each command in the /bin folder
 * (done) copy over source folder from theme to _public folder
 
 * have a system where you can have just the first few lines of text for use in blog pages, and the home page (ex: <!-- more -->, or a method that grabs the first 100 words of a post and appends ... more link).
+
+* helpers should be pulled out of the object for posts only and into a common object that is used in all pages.
+* try to work out an object standard for everything that has to do with generating pages, and make the generator itself sumething that loads one or more of these objects. call these objects something like a 'component'
+
+Something like this maybe.
+```
+// component
+let blogComponent = {
+  
+  // what to do during the buildLocals object phase
+  // return a Promise
+  buildLocals: (conf, locals) => {
+     // use data in conf to help create
+     // something that is appended to locals
+     return PromiseMethod();
+  },
+  
+  // build pages by returning one instance of render
+  // of a Promise.all of renders
+  build: (conf, locals, render) => {
+    return Promise.all(locals.posts.map((post)=>{
+      return render({
+        path: '/blog' + post.dir_post, 
+        layout: 'post'
+      });
+    }));
+  }
+  
+}
+```
+
 * cat pages
 * tag pages
 * Generate /blog/index.html that can be used to link to /page/1/index.html, cats/[catName]/page/1/html for all cats, as well as /blog/[yyyy]/index.html for all years, and the same for tag pages
